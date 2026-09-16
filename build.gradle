@@ -47,8 +47,8 @@ dependencies {
     // Used only to read the same on-disk death records GraveStone itself writes.
     // GraveStone bundles its own private, relocated copy of this library, so we embed our
     // own copy via jarJar (NeoForge's jar-in-jar mechanism) rather than assuming it's present.
-    compileOnly "de.maxhenkel.corelib:corelib:${minecraft_version}-${corelib_version}:api"
-    jarJar "de.maxhenkel.corelib:corelib:[${minecraft_version}-${corelib_version},${minecraft_version}-3.0.0)"
+    compileOnly "de.maxhenkel.corelib:corelib:${corelib_version}+${minecraft_version}:api"
+    jarJar "de.maxhenkel.corelib:corelib:[${corelib_version}+${minecraft_version},3.0.0+${minecraft_version})"
 
     // The official GraveStone mod jar, compile-time only - used to reference its public
     // registration objects (ObituaryItem, DeathInfo, Main.DEATH_DATA_COMPONENT).

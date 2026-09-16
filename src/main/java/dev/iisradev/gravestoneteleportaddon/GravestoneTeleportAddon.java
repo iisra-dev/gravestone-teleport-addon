@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -22,8 +21,8 @@ public class GravestoneTeleportAddon {
             () -> DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).build());
 
     private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, MODID);
-    public static final DeferredHolder<RecipeSerializer<?>, CustomRecipe.Serializer<ChargeObituaryRecipe>> CHARGE_OBITUARY_SERIALIZER = RECIPE_SERIALIZERS.register("charge_obituary",
-            () -> new CustomRecipe.Serializer<>(ChargeObituaryRecipe::new));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ChargeObituaryRecipe>> CHARGE_OBITUARY_SERIALIZER = RECIPE_SERIALIZERS.register("charge_obituary",
+            () -> ChargeObituaryRecipe.SERIALIZER);
 
     public GravestoneTeleportAddon(IEventBus modEventBus) {
         DATA_COMPONENT_TYPES.register(modEventBus);

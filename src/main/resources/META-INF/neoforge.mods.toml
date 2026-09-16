@@ -28,7 +28,7 @@ side = "BOTH"
 [[dependencies.gravestone_teleport_addon]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.11,1.21.12)"
+versionRange = "[26.1.2,26.1.3)"
 ordering = "NONE"
 side = "BOTH"
 
