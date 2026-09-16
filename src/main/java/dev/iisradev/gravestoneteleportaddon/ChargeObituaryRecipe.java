@@ -1,11 +1,12 @@
 package dev.iisradev.gravestoneteleportaddon;
 
+import com.mojang.serialization.MapCodec;
 import de.maxhenkel.gravestone.items.ObituaryItem;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -18,9 +19,10 @@ import net.minecraft.world.level.Level;
  */
 public class ChargeObituaryRecipe extends CustomRecipe {
 
-    public ChargeObituaryRecipe(CraftingBookCategory category) {
-        super(category);
-    }
+    public static final ChargeObituaryRecipe INSTANCE = new ChargeObituaryRecipe();
+    public static final MapCodec<ChargeObituaryRecipe> MAP_CODEC = MapCodec.unit(INSTANCE);
+    public static final StreamCodec<RegistryFriendlyByteBuf, ChargeObituaryRecipe> STREAM_CODEC = StreamCodec.unit(INSTANCE);
+    public static final RecipeSerializer<ChargeObituaryRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     @Override
     public boolean matches(CraftingInput input, Level level) {
@@ -51,7 +53,7 @@ public class ChargeObituaryRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(CraftingInput input) {
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
             if (!stack.isEmpty() && stack.getItem() instanceof ObituaryItem) {
@@ -66,6 +68,6 @@ public class ChargeObituaryRecipe extends CustomRecipe {
 
     @Override
     public RecipeSerializer<ChargeObituaryRecipe> getSerializer() {
-        return GravestoneTeleportAddon.CHARGE_OBITUARY_SERIALIZER.get();
+        return SERIALIZER;
     }
 }

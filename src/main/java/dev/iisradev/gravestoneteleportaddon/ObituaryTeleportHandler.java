@@ -76,13 +76,13 @@ public class ObituaryTeleportHandler {
 
         DeathInfo deathInfo = getDeathInfo(stack);
         if (deathInfo == null) {
-            serverPlayer.displayClientMessage(Component.translatable("message.gravestone_teleport_addon.death_not_found"), true);
+            serverPlayer.sendOverlayMessage(Component.translatable("message.gravestone_teleport_addon.death_not_found"));
             return;
         }
 
         Death death = DeathManager.getDeath(serverPlayer.level(), deathInfo.getPlayerId(), deathInfo.getDeathId());
         if (death == null) {
-            serverPlayer.displayClientMessage(Component.translatable("message.gravestone_teleport_addon.death_not_found"), true);
+            serverPlayer.sendOverlayMessage(Component.translatable("message.gravestone_teleport_addon.death_not_found"));
             return;
         }
 
@@ -93,7 +93,7 @@ public class ObituaryTeleportHandler {
         ResourceKey<Level> dimension = ResourceKey.create(Registries.DIMENSION, Identifier.parse(death.getDimension()));
         ServerLevel destination = player.level().getServer().getLevel(dimension);
         if (destination == null) {
-            player.displayClientMessage(Component.translatable("message.gravestone_teleport_addon.dimension_not_found"), true);
+            player.sendOverlayMessage(Component.translatable("message.gravestone_teleport_addon.dimension_not_found"));
             return;
         }
 

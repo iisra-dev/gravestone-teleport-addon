@@ -9,7 +9,7 @@ Download it yourself from one of the official sources — do not ask anyone else
 - CurseForge: https://www.curseforge.com/minecraft/mc-mods/gravestone-mod
 - Source: https://github.com/henkelmax/gravestone
 
-Drop the `.jar` file (e.g. `gravestone-neoforge-1.21.1-1.0.40.jar`) directly into this folder.
+Drop the `.jar` file (e.g. `gravestone-neoforge-1.0.40+26.2.jar`) directly into this folder.
 `build.gradle` picks up any `*.jar` in here as a `compileOnly` dependency.
 
 This jar is **never bundled, shaded, or committed** to this repository (see `.gitignore`) —
