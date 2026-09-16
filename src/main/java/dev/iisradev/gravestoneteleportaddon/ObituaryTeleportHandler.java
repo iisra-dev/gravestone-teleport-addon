@@ -11,8 +11,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -39,12 +39,12 @@ public class ObituaryTeleportHandler {
 
     // Looked up by GraveStone's stable registered id instead of importing its internal
     // Main/GravestoneMod class, which has already been renamed once across their versions.
-    private static final ResourceLocation DEATH_COMPONENT_ID = ResourceLocation.fromNamespaceAndPath("gravestone", "death");
+    private static final Identifier DEATH_COMPONENT_ID = Identifier.fromNamespaceAndPath("gravestone", "death");
 
     @Nullable
     @SuppressWarnings("unchecked")
     private static DeathInfo getDeathInfo(ItemStack stack) {
-        DataComponentType<?> deathComponent = BuiltInRegistries.DATA_COMPONENT_TYPE.get(DEATH_COMPONENT_ID);
+        DataComponentType<?> deathComponent = BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(DEATH_COMPONENT_ID);
         if (deathComponent == null) {
             return null;
         }
@@ -80,7 +80,7 @@ public class ObituaryTeleportHandler {
             return;
         }
 
-        Death death = DeathManager.getDeath(serverPlayer.serverLevel(), deathInfo.getPlayerId(), deathInfo.getDeathId());
+        Death death = DeathManager.getDeath(serverPlayer.level(), deathInfo.getPlayerId(), deathInfo.getDeathId());
         if (death == null) {
             serverPlayer.displayClientMessage(Component.translatable("message.gravestone_teleport_addon.death_not_found"), true);
             return;
@@ -90,8 +90,8 @@ public class ObituaryTeleportHandler {
     }
 
     private void teleportToGrave(ServerPlayer player, ItemStack stack, Death death) {
-        ResourceKey<Level> dimension = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(death.getDimension()));
-        ServerLevel destination = player.server.getLevel(dimension);
+        ResourceKey<Level> dimension = ResourceKey.create(Registries.DIMENSION, Identifier.parse(death.getDimension()));
+        ServerLevel destination = player.level().getServer().getLevel(dimension);
         if (destination == null) {
             player.displayClientMessage(Component.translatable("message.gravestone_teleport_addon.dimension_not_found"), true);
             return;
@@ -101,9 +101,9 @@ public class ObituaryTeleportHandler {
         double y = death.getPosY() + 1D;
         double z = death.getPosZ();
 
-        player.serverLevel().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
+        player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
 
-        player.teleportTo(destination, x, y, z, Set.of(), player.getYRot(), player.getXRot());
+        player.teleportTo(destination, x, y, z, Set.of(), player.getYRot(), player.getXRot(), false);
 
         destination.playSound(null, x, y, z, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
         destination.sendParticles(ParticleTypes.PORTAL, x + 0.5D, y + 1D, z + 0.5D, 32, 0.5D, 1D, 0.5D, 0D);
