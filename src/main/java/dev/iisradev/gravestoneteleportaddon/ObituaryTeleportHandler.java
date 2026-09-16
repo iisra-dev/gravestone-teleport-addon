@@ -3,11 +3,12 @@ package dev.iisradev.gravestoneteleportaddon;
 import de.maxhenkel.corelib.death.Death;
 import de.maxhenkel.corelib.death.DeathManager;
 import de.maxhenkel.gravestone.DeathInfo;
-import de.maxhenkel.gravestone.Main;
 import de.maxhenkel.gravestone.items.ObituaryItem;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -25,6 +26,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
+import javax.annotation.Nullable;
 import java.util.Set;
 
 /**
@@ -34,6 +36,20 @@ import java.util.Set;
  * modified; the original obituary GUI keeps working exactly as it does without this addon.
  */
 public class ObituaryTeleportHandler {
+
+    // Looked up by GraveStone's stable registered id instead of importing its internal
+    // Main/GravestoneMod class, which has already been renamed once across their versions.
+    private static final ResourceLocation DEATH_COMPONENT_ID = ResourceLocation.fromNamespaceAndPath("gravestone", "death");
+
+    @Nullable
+    @SuppressWarnings("unchecked")
+    private static DeathInfo getDeathInfo(ItemStack stack) {
+        DataComponentType<?> deathComponent = BuiltInRegistries.DATA_COMPONENT_TYPE.get(DEATH_COMPONENT_ID);
+        if (deathComponent == null) {
+            return null;
+        }
+        return (DeathInfo) stack.get(deathComponent);
+    }
 
     @SubscribeEvent
     public void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
@@ -58,7 +74,7 @@ public class ObituaryTeleportHandler {
             return;
         }
 
-        DeathInfo deathInfo = stack.get(Main.DEATH_DATA_COMPONENT.get());
+        DeathInfo deathInfo = getDeathInfo(stack);
         if (deathInfo == null) {
             serverPlayer.displayClientMessage(Component.translatable("message.gravestone_teleport_addon.death_not_found"), true);
             return;
