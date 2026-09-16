@@ -1,0 +1,6 @@
+{
+  "item.gravestone_teleport_addon.charged": "Rechtsklick, um dich zu deinem Grab zu teleportieren",
+  "item.gravestone_teleport_addon.uncharged": "Mit einer Enderperle kombinieren, um die Teleportation zu aktivieren",
+  "message.gravestone_teleport_addon.dimension_not_found": "Die Dimension des Grabes existiert nicht mehr",
+  "message.gravestone_teleport_addon.death_not_found": "Tod nicht gefunden"
+}

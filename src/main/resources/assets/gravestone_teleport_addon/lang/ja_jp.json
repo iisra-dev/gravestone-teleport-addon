@@ -1,0 +1,6 @@
+{
+  "item.gravestone_teleport_addon.charged": "右クリックで墓にテレポートします",
+  "item.gravestone_teleport_addon.uncharged": "エンダーパールと組み合わせるとテレポートが可能になります",
+  "message.gravestone_teleport_addon.dimension_not_found": "墓のディメンションはもう存在しません",
+  "message.gravestone_teleport_addon.death_not_found": "死亡は確認されませんでした"
+}

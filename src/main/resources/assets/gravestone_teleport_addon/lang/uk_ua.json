@@ -1,0 +1,6 @@
+{
+  "item.gravestone_teleport_addon.charged": "ПКМ, щоб телепортуватися до своєї могили",
+  "item.gravestone_teleport_addon.uncharged": "Поєднайте з перлиною Енду, щоб активувати телепортацію",
+  "message.gravestone_teleport_addon.dimension_not_found": "Вимір могили більше не існує",
+  "message.gravestone_teleport_addon.death_not_found": "Смерть не знайдена"
+}

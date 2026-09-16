@@ -1,0 +1,6 @@
+{
+  "item.gravestone_teleport_addon.charged": "右键点击以传送到你的坟墓",
+  "item.gravestone_teleport_addon.uncharged": "与末影珍珠合成以启用传送功能",
+  "message.gravestone_teleport_addon.dimension_not_found": "坟墓所在的维度已不存在",
+  "message.gravestone_teleport_addon.death_not_found": "死亡未找到"
+}
