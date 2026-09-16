@@ -1,6 +1,0 @@
-{
-  "item.gravestone_teleport_addon.charged": "Right click to teleport to your grave",
-  "item.gravestone_teleport_addon.uncharged": "Combine with an Ender Pearl to enable teleportation",
-  "message.gravestone_teleport_addon.dimension_not_found": "The grave's dimension no longer exists",
-  "message.gravestone_teleport_addon.death_not_found": "Death not found"
-}
